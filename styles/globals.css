@@ -7,8 +7,8 @@ body {
   @apply m-0 bg-dark text-gray-200 min-h-screen overflow-x-hidden;
 }
 
-.on-top .navbar {
-  background: transparent !important;
+.scrolled .navbar {
+  @apply !bg-dark;
 }
 
 * {

@@ -1,5 +1,7 @@
 import "../styles/globals.css";
 import "nprogress/nprogress.css";
+import "swiper/css";
+import "swiper/css/navigation";
 
 import Router, { useRouter } from "next/router";
 
