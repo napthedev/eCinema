@@ -1,32 +1,32 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Cast, Item, MovieDetail, VideoTrailer } from "../../utils/types";
+import { Cast, Detail, Item, VideoTrailer } from "../utils/types";
 import { FaPlayCircle, FaYoutube } from "react-icons/fa";
-import type { GetServerSideProps, NextPage } from "next";
-import { imageOriginal, imageResize } from "../../utils/constants";
+import { Fragment, useState } from "react";
+import { imageOriginal, imageResize } from "../utils/constants";
 
-import Button from "../../components/Button";
+import Button from "./Button";
 import { FaTimes } from "react-icons/fa";
 import Head from "next/head";
-import Layout from "../../components/Layout";
-import MovieSlider from "../../components/MovieSlider";
-import StarRating from "../../components/StarRating";
-import { getMovieDetails } from "../../utils/api";
-import { useState } from "react";
+import Link from "next/link";
+import MovieSlider from "./MovieSlider";
+import type { NextPage } from "next";
+import StarRating from "./StarRating";
 
-interface MovieProps {
-  data: MovieDetail;
+interface ItemViewProps {
+  type: "movie" | "tv";
+  data: Detail;
   casts: Cast[];
   similar: Item[];
   videos: VideoTrailer[];
 }
 
-const Movie: NextPage<MovieProps> = ({ data, casts, similar, videos }) => {
+const ItemView: NextPage<ItemViewProps> = ({ type, data, casts, similar, videos }) => {
   const [trailerModalOpened, setTrailerModalOpened] = useState(false);
 
   return (
-    <Layout>
+    <>
       <Head>
-        <title>{data.title} - Movie - eCinema</title>
+        <title>{type === "movie" ? data.title : data.name} - Movie - eCinema</title>
       </Head>
       <div className="relative min-h-screen">
         <div style={{ backgroundImage: `url("${imageOriginal(data.backdrop_path)}")`, backgroundPosition: "50%" }} className="mask-image bg-no-repeat bg-cover w-screen h-[350px] md:h-[500px] absolute top-0 left-0 opacity-50 block z-[-1]"></div>
@@ -36,18 +36,24 @@ const Movie: NextPage<MovieProps> = ({ data, casts, similar, videos }) => {
           </div>
           <div className="flex flex-col justify-start gap-3">
             <div className="flex gap-2 justify-center md:justify-start">
-              <Button>
-                <FaPlayCircle />
-                <span>Watch now</span>
-              </Button>
+              <Link href={type === "movie" ? `/movie/${data.id}/watch` : `/tv/${data.id}/watch`}>
+                <a>
+                  <Button>
+                    <FaPlayCircle />
+                    <span>Watch now</span>
+                  </Button>
+                </a>
+              </Link>
               <Button onClick={() => setTrailerModalOpened(true)}>
                 <FaYoutube />
                 <span>Watch trailer</span>
               </Button>
             </div>
-            <p className="text-4xl">{data.title}</p>
+            <p className="text-4xl">{type === "movie" ? data.title : data.name}</p>
             <p className="text-lg text-justify">{data.overview}</p>
             {data.release_date && <p>Release Date: {data.release_date}</p>}
+            {data.last_air_date && <p>Last Episode Date: {data.last_air_date}</p>}
+
             {data.genres && (
               <div className="flex gap-2 flex-wrap">
                 {data.genres.map((item) => (
@@ -102,43 +108,24 @@ const Movie: NextPage<MovieProps> = ({ data, casts, similar, videos }) => {
                   <FaTimes size={30} />
                 </button>
               </div>
-              {videos ? (
+              {videos.length > 0 ? (
                 videos.map((item) => (
-                  <>
+                  <Fragment key={item.key}>
                     <h1 className="text-lg mx-2 mt-4">{item.name}</h1>
                     <div className="relative h-0 w-full" style={{ paddingBottom: "56.25%" }}>
                       <iframe className="absolute top-0 left-0 w-full h-full" src={`https://www.youtube.com/embed/${item.key}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                     </div>
-                  </>
+                  </Fragment>
                 ))
               ) : (
-                <h1>No video trailer found</h1>
+                <h1>No video trailer found!</h1>
               )}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </Layout>
+    </>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query, res }) => {
-  const movieId = query.id as string;
-
-  try {
-    const response = await getMovieDetails(movieId);
-
-    res.setHeader("Cache-Control", "public, max-age=99999");
-    return {
-      props: {
-        ...response,
-      },
-    };
-  } catch (error) {
-    return {
-      notFound: true,
-    };
-  }
-};
-
-export default Movie;
+export default ItemView;

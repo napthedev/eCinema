@@ -6,21 +6,22 @@ export interface Item {
   backdrop_path: string;
   id: number;
   type: "tv" | "movie";
+  vote_average: number;
 }
 
-export interface MovieDetail {
+export interface Detail {
   backdrop_path: string;
   genres: { id: number; name: string }[];
   homepage: string;
   id: number;
   overview: string;
-  popularity: number;
   poster_path: string;
   release_date: string;
   title: string;
-  video: false;
   vote_average: number;
   vote_count: number;
+  last_air_date: string;
+  name: string;
 }
 
 export interface Cast {

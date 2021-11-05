@@ -35,10 +35,14 @@ const Home: NextPage<HomeProps> = ({ data, main }) => {
             <p className="md:text-5xl text-4xl text-gray-100 max-w-xl">{main.title || main.name}</p>
             <p className="md:text-xl text-lg max-w-xl text-gray-100 text-justify multiline-ellipsis">{main.overview}</p>
             <div className="flex gap-3">
-              <Button>
-                <FaPlayCircle />
-                <span>Watch now</span>
-              </Button>
+              <Link href={`/movie/${main.id}/watch`}>
+                <a>
+                  <Button>
+                    <FaPlayCircle />
+                    <span>Watch now</span>
+                  </Button>
+                </a>
+              </Link>
               <Link href={`/movie/${main.id}`}>
                 <a>
                   <Button>
