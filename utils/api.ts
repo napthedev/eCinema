@@ -1,4 +1,4 @@
-import { Cast, Item, MovieDetail } from "./types";
+import { Cast, Item, MovieDetail, VideoTrailer } from "./types";
 
 import axios from "./axios";
 
@@ -22,10 +22,22 @@ export const getHomeData: () => Promise<{ [id: string]: Item[] }> = async () => 
   return data;
 };
 
-export const getMovieDetails: (id: string) => Promise<{ data: MovieDetail; casts: Cast[] }> = async (id) => {
-  const data = (await axios.get(`/movie/${id}`)).data;
+export const getMovieDetails: (id: string) => Promise<{ data: MovieDetail; casts: Cast[]; similar: Item[]; videos: VideoTrailer[] }> = async (id) => {
+  const labels = ["data", "casts", "similar", "videos"];
 
-  const casts = (await axios.get(`/movie/${id}/credits`)).data.cast.filter((item: any) => item.name && item.character && item.profile_path).slice(0, 10);
+  const result = (await Promise.all([axios.get(`/movie/${id}`), axios.get(`/movie/${id}/credits`), axios.get(`/movie/${id}/similar`), axios.get(`/movie/${id}/videos`)])).reduce((final, current, index) => {
+    if (labels[index] === "data") {
+      final[labels[index]] = current.data;
+    } else if (labels[index] === "casts") {
+      final[labels[index]] = current.data.cast.filter((item: any) => item.name && item.character && item.profile_path).slice(0, 10);
+    } else if (labels[index] === "similar") {
+      final[labels[index]] = current.data.results.map((item: any) => ({ ...item, type: "movie" }));
+    } else if (labels[index] === "videos") {
+      final[labels[index]] = current.data.results.filter((item: any) => item.name && item.site === "YouTube");
+    }
 
-  return { data, casts };
+    return final;
+  }, {} as any);
+
+  return result;
 };

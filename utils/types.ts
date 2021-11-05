@@ -29,3 +29,8 @@ export interface Cast {
   profile_path: string;
   character: string;
 }
+
+export interface VideoTrailer {
+  name: string;
+  key: string;
+}
