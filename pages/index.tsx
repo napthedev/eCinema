@@ -1,5 +1,5 @@
 import { FaInfoCircle, FaPlayCircle } from "react-icons/fa";
-import { HomeAPIRoutes, imageOriginal, imageResize } from "../utils/constants";
+import { imageOriginal, imageResize } from "../utils/constants";
 
 import Button from "../components/Button";
 import { Fragment } from "react";
@@ -10,7 +10,7 @@ import Layout from "../components/Layout";
 import Link from "next/link";
 import MovieSlider from "../components/MovieSlider";
 import type { NextPage } from "next";
-import axios from "../utils/axios";
+import { getHomeData } from "../utils/api";
 
 interface HomeProps {
   isError: boolean;
@@ -66,12 +66,7 @@ const Home: NextPage<HomeProps> = ({ data, main }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const promises = await Promise.all(Object.keys(HomeAPIRoutes).map((item) => axios.get(HomeAPIRoutes[item].url)));
-
-    const data = promises.reduce((final, current, index) => {
-      final[Object.keys(HomeAPIRoutes)[index]] = current.data.results.map((item: any) => ({ ...item, type: HomeAPIRoutes[Object.keys(HomeAPIRoutes)[index]].type }));
-      return final;
-    }, {} as { [id: string]: Item[] });
+    const data = await getHomeData();
 
     const main = data["Trending Movies"][Math.floor(Math.random() * data["Trending Movies"].length)];
 

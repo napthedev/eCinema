@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 
+import Footer from "./Footer";
 import type { NextPage } from "next";
 import { motion } from "framer-motion";
 
@@ -46,6 +47,7 @@ const Layout: NextPage = ({ children }) => {
       }}
     >
       {children}
+      <Footer />
     </motion.div>
   );
 };
