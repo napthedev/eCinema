@@ -33,7 +33,7 @@ const Home: NextPage<HomeProps> = ({ data, main }) => {
         <div className="z-10 w-auto flex-1 flex justify-center items-center">
           <div className="flex flex-col items-start gap-4">
             <p className="md:text-5xl text-4xl text-gray-100 max-w-xl">{main.title || main.name}</p>
-            <p className="md:text-xl text-lg max-w-xl text-gray-100 multiline-ellipsis">{main.overview}</p>
+            <p className="md:text-xl text-lg max-w-xl text-gray-100 text-justify multiline-ellipsis">{main.overview}</p>
             <div className="flex gap-3">
               <Button>
                 <FaPlayCircle />

@@ -24,6 +24,10 @@ body {
   height: 3px !important;
 }
 
+#nprogress .peg {
+  box-shadow: 0 0 10px #ff0000, 0 0 5px #ff0000 !important;
+}
+
 .multiline-ellipsis {
   display: -webkit-box;
   -webkit-line-clamp: 4;

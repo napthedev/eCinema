@@ -36,7 +36,7 @@ const Movie: NextPage<MovieProps> = ({ data }) => {
               </Button>
             </div>
             <p className="text-4xl">{data.title}</p>
-            <p className="text-lg">{data.overview}</p>
+            <p className="text-lg text-justify">{data.overview}</p>
             <div className="flex gap-2">
               {data.genres.map((item) => (
                 <span key={item.id} className="bg-dark-lighten border border-white px-3 py-1 rounded-full">
