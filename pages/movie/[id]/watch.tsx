@@ -21,7 +21,7 @@ const WatchMovie: NextPage<WatchMovieProps> = ({ similar, data }) => {
         <title>{data.title} - Watch movie - eCinema</title>
       </Head>
       <Layout>
-        <div className="mt-28 flex px-20 gap-8">
+        <div className="mt-28 flex flex-col lg:flex-row px-10 lg:px-20 gap-8">
           <div className="flex-grow">
             <div className="relative h-0 w-full" style={{ paddingBottom: "56.25%" }}>
               <iframe className="absolute top-0 left-0 w-full h-full" src={embedMovie(data.id)} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
@@ -35,7 +35,7 @@ const WatchMovie: NextPage<WatchMovieProps> = ({ similar, data }) => {
               <StarRating maximum={10} stars={Math.round(data.vote_average)} extraText={` (${data.vote_count} votes)`} />
             </div>
           </div>
-          <div className="flex-shrink-0 w-72 flex flex-col gap-4 overflow-y-auto max-h-screen">
+          <div className="flex-shrink-0 w-full lg:w-72 flex flex-col gap-4 overflow-y-auto lg:max-h-screen">
             <h1 className="text-xl">Similar Movies</h1>
             {similar.map((item) => (
               <Link href={`/movie/${item.id}`}>
