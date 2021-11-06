@@ -78,7 +78,7 @@ const ItemView: NextPage<ItemViewProps> = ({ media_type, data, casts, similar, v
                 ))}
               </div>
             )}
-            <div className="flex items-center">{data.vote_average && <StarRating stars={Math.round(data.vote_average)} maximum={10} extraText={` (${data.vote_count} votes)`} />}</div>
+            <div className="flex items-center">{data.vote_average ? <StarRating stars={Math.round(data.vote_average)} maximum={10} extraText={` (${data.vote_count} votes)`} /> : <></>}</div>
           </div>
         </div>
         <div className="mt-10 md:mt-20 px-10 md:px-20">
