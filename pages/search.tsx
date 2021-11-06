@@ -1,12 +1,13 @@
+import { FormEvent, useState } from "react";
+
+import { FaSearch } from "react-icons/fa";
 import { GetServerSideProps } from "next";
-import MovieGrid from "../components/MovieGrid";
-import { useState, FormEvent } from "react";
-import type { NextPage } from "next";
-import { search } from "../utils/api";
-import { SearchResult } from "../utils/types";
 import Head from "next/head";
 import Layout from "../components/Layout";
-import { FaSearch } from "react-icons/fa";
+import MovieGrid from "../components/MovieGrid";
+import type { NextPage } from "next";
+import { SearchResult } from "../utils/types";
+import { search } from "../utils/api";
 import { useRouter } from "next/router";
 
 interface SearchProps {
