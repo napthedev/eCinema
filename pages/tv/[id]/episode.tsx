@@ -84,8 +84,10 @@ const TVEpisode: NextPage<TVEpisodeProps> = ({ seasons, data, seasonId, episodeI
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps = async ({ query, res }) => {
   try {
+    res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate");
+
     const id = query.id as string;
 
     const seasonId = query.season as string;

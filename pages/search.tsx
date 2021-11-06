@@ -57,26 +57,34 @@ const Search: NextPage<SearchProps> = ({ result, newPage = false, q }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const q = query.q as string;
-  const page = query.page ? Number(query.page) : 1;
+export const getServerSideProps: GetServerSideProps = async ({ query, res }) => {
+  try {
+    res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate");
+    const q = query.q as string;
+    const page = query.page ? Number(query.page) : 1;
 
-  if (!q) {
+    if (!q) {
+      return {
+        props: {
+          newPage: true,
+        },
+      };
+    }
+
+    const response = await search(q, page);
+
     return {
       props: {
-        newPage: true,
+        result: response,
+        q,
       },
     };
+  } catch (error) {
+    console.log(error);
+    return {
+      notFound: true,
+    };
   }
-
-  const response = await search(q, page);
-
-  return {
-    props: {
-      result: response,
-      q,
-    },
-  };
 };
 
 export default Search;
