@@ -15,7 +15,7 @@ interface TVProps {
 const TV: NextPage<TVProps> = (props) => {
   return (
     <Layout>
-      <ItemView {...props} type="tv" />
+      <ItemView {...props} media_type="tv" />
     </Layout>
   );
 };

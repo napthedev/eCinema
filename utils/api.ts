@@ -2,19 +2,19 @@ import { Detail } from "./types";
 import axios from "./axios";
 
 export const getHomeData: () => Promise<any> = async () => {
-  const HomeAPIRoutes: { [key: string]: { url: string; type: "tv" | "movie" } } = {
-    "Trending Movies": { url: "/trending/movie/week", type: "movie" },
-    "Popular Movies": { url: "/movie/popular", type: "movie" },
-    "Top Rated Movies": { url: "/movie/top_rated", type: "movie" },
-    "Trending TV": { url: "/trending/tv/week", type: "tv" },
-    "Popular TV": { url: "/tv/popular", type: "tv" },
-    "Top Rated TV": { url: "/tv/top_rated", type: "tv" },
+  const HomeAPIRoutes: { [key: string]: { url: string; media_type: "tv" | "movie" } } = {
+    "Trending Movies": { url: "/trending/movie/week", media_type: "movie" },
+    "Popular Movies": { url: "/movie/popular", media_type: "movie" },
+    "Top Rated Movies": { url: "/movie/top_rated", media_type: "movie" },
+    "Trending TV": { url: "/trending/tv/week", media_type: "tv" },
+    "Popular TV": { url: "/tv/popular", media_type: "tv" },
+    "Top Rated TV": { url: "/tv/top_rated", media_type: "tv" },
   };
 
   const promises = await Promise.all(Object.keys(HomeAPIRoutes).map((item) => axios.get(HomeAPIRoutes[item].url)));
 
   const data = promises.reduce((final, current, index) => {
-    final[Object.keys(HomeAPIRoutes)[index]] = current.data.results.map((item: any) => ({ ...item, type: HomeAPIRoutes[Object.keys(HomeAPIRoutes)[index]].type }));
+    final[Object.keys(HomeAPIRoutes)[index]] = current.data.results.map((item: any) => ({ ...item, media_type: HomeAPIRoutes[Object.keys(HomeAPIRoutes)[index]].media_type }));
     return final;
   }, {} as any);
 
@@ -28,7 +28,7 @@ export const getWatchMovieContent: (id: string) => Promise<any> = async (id) => 
     if (labels[index] === "data") {
       final[labels[index]] = current.data;
     } else if (labels[index] === "similar") {
-      final[labels[index]] = current.data.results.map((item: any) => ({ ...item, type: "movie" }));
+      final[labels[index]] = current.data.results.map((item: any) => ({ ...item, media_type: "movie" }));
     }
     return final;
   }, {} as any);
@@ -37,7 +37,7 @@ export const getWatchMovieContent: (id: string) => Promise<any> = async (id) => 
 };
 
 export const getSimilarTVs: (id: string) => Promise<any> = async (id) => {
-  const data = (await axios.get(`/movie/${id}/similar`)).data.results.map((item: any) => ({ ...item, type: "movie" }));
+  const data = (await axios.get(`/movie/${id}/similar`)).data.results.map((item: any) => ({ ...item, media_type: "movie" }));
   return data;
 };
 
@@ -50,7 +50,7 @@ export const getMovieDetails: (id: string) => Promise<any> = async (id) => {
     } else if (labels[index] === "casts") {
       final[labels[index]] = current.data.cast.filter((item: any) => item.name && item.character && item.profile_path).slice(0, 10);
     } else if (labels[index] === "similar") {
-      final[labels[index]] = current.data.results.map((item: any) => ({ ...item, type: "movie" }));
+      final[labels[index]] = current.data.results.map((item: any) => ({ ...item, media_type: "movie" }));
     } else if (labels[index] === "videos") {
       final[labels[index]] = current.data.results.filter((item: any) => item.name && item.site === "YouTube");
     }
@@ -70,7 +70,7 @@ export const getTVDetails: (id: string) => Promise<any> = async (id) => {
     } else if (labels[index] === "casts") {
       final[labels[index]] = current.data.cast.filter((item: any) => item.name && item.character && item.profile_path).slice(0, 10);
     } else if (labels[index] === "similar") {
-      final[labels[index]] = current.data.results.map((item: any) => ({ ...item, type: "tv" }));
+      final[labels[index]] = current.data.results.map((item: any) => ({ ...item, media_type: "tv" }));
     } else if (labels[index] === "videos") {
       final[labels[index]] = current.data.results.filter((item: any) => item.name && item.site === "YouTube");
     }
@@ -93,5 +93,14 @@ export const getTVSeasons: (id: string) => Promise<any> = async (id) => {
   return {
     seasons,
     data,
+  };
+};
+
+export const search: (query: string, page?: number) => Promise<any> = async (query, page = 1) => {
+  const data = (await axios.get("/search/multi", { params: { query, page } })).data;
+
+  return {
+    ...data,
+    results: data.results.filter((item: any) => item.poster_path),
   };
 };

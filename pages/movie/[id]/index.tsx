@@ -16,7 +16,7 @@ const Movie: NextPage<MovieProps> = (props) => {
   return (
     <>
       <Layout>
-        <ItemView {...props} type="movie" />
+        <ItemView {...props} media_type="movie" />
       </Layout>
     </>
   );

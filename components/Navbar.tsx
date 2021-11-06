@@ -8,7 +8,11 @@ const Navbar: NextPage = () => {
       <Link href="/">
         <img className="h-full w-auto cursor-pointer" src="https://ik.imagekit.io/nap/eCinema/eCinema_Logo_X2vcmwMm4.png" alt="" />
       </Link>
-      <FaSearch className="mr-4 cursor-pointer" size={30} />
+      <Link href="/search">
+        <a>
+          <FaSearch className="mr-4 cursor-pointer" size={30} />
+        </a>
+      </Link>
     </div>
   );
 };

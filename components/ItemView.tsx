@@ -13,20 +13,20 @@ import type { NextPage } from "next";
 import StarRating from "./StarRating";
 
 interface ItemViewProps {
-  type: "movie" | "tv";
+  media_type: "movie" | "tv";
   data: Detail;
   casts: Cast[];
   similar: Item[];
   videos: VideoTrailer[];
 }
 
-const ItemView: NextPage<ItemViewProps> = ({ type, data, casts, similar, videos }) => {
+const ItemView: NextPage<ItemViewProps> = ({ media_type, data, casts, similar, videos }) => {
   const [trailerModalOpened, setTrailerModalOpened] = useState(false);
 
   return (
     <>
       <Head>
-        <title>{type === "movie" ? `${data.title} - Movie` : `${data.name} - TV`} - eCinema</title>
+        <title>{media_type === "movie" ? `${data.title} - Movie` : `${data.name} - TV`} - eCinema</title>
       </Head>
       <div className="relative min-h-screen">
         <div style={{ backgroundImage: `url("${imageOriginal(data.backdrop_path)}")`, backgroundPosition: "50%" }} className="mask-image bg-no-repeat bg-cover w-screen h-[350px] md:h-[500px] absolute top-0 left-0 opacity-50 block z-[-1]"></div>
@@ -36,7 +36,7 @@ const ItemView: NextPage<ItemViewProps> = ({ type, data, casts, similar, videos 
           </div>
           <div className="flex flex-col justify-start gap-3">
             <div className="flex gap-2 justify-center md:justify-start md:h-12">
-              {type === "movie" ? (
+              {media_type === "movie" ? (
                 <Link href={`/movie/${data.id}/watch`}>
                   <a>
                     <Button>
@@ -64,7 +64,7 @@ const ItemView: NextPage<ItemViewProps> = ({ type, data, casts, similar, videos 
                 </Button>
               )}
             </div>
-            <p className="text-4xl">{type === "movie" ? data.title : data.name}</p>
+            <p className="text-4xl">{media_type === "movie" ? data.title : data.name}</p>
             <p className="text-lg text-justify">{data.overview}</p>
             {data.release_date && <p>Release Date: {data.release_date}</p>}
             {data.last_air_date && <p>Last Episode Date: {data.last_air_date}</p>}

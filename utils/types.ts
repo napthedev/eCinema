@@ -5,7 +5,7 @@ export interface Item {
   overview: string;
   backdrop_path: string;
   id: number;
-  type: "tv" | "movie";
+  media_type: "tv" | "movie";
   vote_average: number;
 }
 
@@ -56,4 +56,11 @@ export interface Cast {
 export interface VideoTrailer {
   name: string;
   key: string;
+}
+
+export interface SearchResult {
+  page: number;
+  total_pages: number;
+  total_results: number;
+  results: Item[];
 }

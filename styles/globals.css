@@ -38,3 +38,7 @@ body {
 .mask-image {
   mask-image: linear-gradient(rgba(0, 0, 0, 1), transparent);
 }
+
+.rounded-btn {
+  @apply bg-dark-lighten w-8 h-8 rounded-full text-center inline-flex justify-center items-center;
+}
