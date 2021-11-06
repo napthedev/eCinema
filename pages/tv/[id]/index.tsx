@@ -1,9 +1,9 @@
-import { Cast, Detail, Item, VideoTrailer } from "../../utils/types";
+import { Cast, Detail, Item, VideoTrailer } from "../../../utils/types";
 import type { GetServerSideProps, NextPage } from "next";
 
-import ItemView from "../../components/ItemView";
-import Layout from "../../components/Layout";
-import { getTVDetails } from "../../utils/api";
+import ItemView from "../../../components/ItemView";
+import Layout from "../../../components/Layout";
+import { getTVDetails } from "../../../utils/api";
 
 interface TVProps {
   data: Detail;
@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query, res }) => 
   try {
     const response = await getTVDetails(movieId);
 
-    res.setHeader("Cache-Control", "public, max-age=99999");
+    res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate");
     return {
       props: {
         ...response,

@@ -6,7 +6,7 @@ interface StarRatingProps {
   extraText?: string;
 }
 
-const StarRating: NextPage<StarRatingProps> = ({ stars, maximum, extraText = "" }) => {
+const StarRating: NextPage<StarRatingProps> = ({ stars = 0, maximum, extraText = "" }) => {
   return (
     <div>
       {new Array(maximum).fill("").map((_, index) => (

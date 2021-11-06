@@ -26,7 +26,7 @@ const ItemView: NextPage<ItemViewProps> = ({ type, data, casts, similar, videos 
   return (
     <>
       <Head>
-        <title>{type === "movie" ? data.title : data.name} - Movie - eCinema</title>
+        <title>{type === "movie" ? `${data.title} - Movie` : `${data.name} - TV`} - eCinema</title>
       </Head>
       <div className="relative min-h-screen">
         <div style={{ backgroundImage: `url("${imageOriginal(data.backdrop_path)}")`, backgroundPosition: "50%" }} className="mask-image bg-no-repeat bg-cover w-screen h-[350px] md:h-[500px] absolute top-0 left-0 opacity-50 block z-[-1]"></div>
@@ -35,19 +35,34 @@ const ItemView: NextPage<ItemViewProps> = ({ type, data, casts, similar, videos 
             <img className="rounded-xl" src={imageResize(data.poster_path, "w300")} alt="" />
           </div>
           <div className="flex flex-col justify-start gap-3">
-            <div className="flex gap-2 justify-center md:justify-start">
-              <Link href={type === "movie" ? `/movie/${data.id}/watch` : `/tv/${data.id}/watch`}>
-                <a>
-                  <Button>
-                    <FaPlayCircle />
-                    <span>Watch now</span>
-                  </Button>
-                </a>
-              </Link>
-              <Button onClick={() => setTrailerModalOpened(true)}>
-                <FaYoutube />
-                <span>Watch trailer</span>
-              </Button>
+            <div className="flex gap-2 justify-center md:justify-start md:h-12">
+              {type === "movie" ? (
+                <Link href={`/movie/${data.id}/watch`}>
+                  <a>
+                    <Button>
+                      <FaPlayCircle />
+                      <span>Watch now</span>
+                    </Button>
+                  </a>
+                </Link>
+              ) : data.seasons.length > 0 && data.seasons[0].episode_count > 0 ? (
+                <Link href={`/tv/${data.id}/watch`}>
+                  <a>
+                    <Button>
+                      <FaPlayCircle />
+                      <span>Watch now</span>
+                    </Button>
+                  </a>
+                </Link>
+              ) : (
+                <></>
+              )}
+              {videos.length > 0 && (
+                <Button onClick={() => setTrailerModalOpened(true)}>
+                  <FaYoutube />
+                  <span>Watch trailer</span>
+                </Button>
+              )}
             </div>
             <p className="text-4xl">{type === "movie" ? data.title : data.name}</p>
             <p className="text-lg text-justify">{data.overview}</p>
@@ -108,7 +123,7 @@ const ItemView: NextPage<ItemViewProps> = ({ type, data, casts, similar, videos 
                   <FaTimes size={30} />
                 </button>
               </div>
-              {videos.length > 0 ? (
+              {videos.length > 0 &&
                 videos.map((item) => (
                   <Fragment key={item.key}>
                     <h1 className="text-lg mx-2 mt-4">{item.name}</h1>
@@ -116,10 +131,7 @@ const ItemView: NextPage<ItemViewProps> = ({ type, data, casts, similar, videos 
                       <iframe className="absolute top-0 left-0 w-full h-full" src={`https://www.youtube.com/embed/${item.key}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                     </div>
                   </Fragment>
-                ))
-              ) : (
-                <h1>No video trailer found!</h1>
-              )}
+                ))}
             </div>
           </motion.div>
         )}

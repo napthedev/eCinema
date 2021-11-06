@@ -22,6 +22,28 @@ export interface Detail {
   vote_count: number;
   last_air_date: string;
   name: string;
+  seasons: {
+    episode_count: number;
+    season_number: number;
+  }[];
+}
+
+export interface Season {
+  episodes: Episode[];
+  name: string;
+  overview: string;
+  poster_path: string;
+  season_number: number;
+}
+
+export interface Episode {
+  air_date: string;
+  episode_number: number;
+  name: string;
+  overview: string;
+  still_path: string;
+  vote_average: number;
+  vote_count: number;
 }
 
 export interface Cast {

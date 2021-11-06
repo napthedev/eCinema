@@ -1,17 +1,16 @@
-import { Cast, Detail, Item, VideoTrailer } from "./types";
-
+import { Detail } from "./types";
 import axios from "./axios";
 
-const HomeAPIRoutes: { [key: string]: { url: string; type: "tv" | "movie" } } = {
-  "Trending Movies": { url: "/trending/movie/week", type: "movie" },
-  "Popular Movies": { url: "/movie/popular", type: "movie" },
-  "Top Rated Movies": { url: "/movie/top_rated", type: "movie" },
-  "Trending TV": { url: "/trending/tv/week", type: "tv" },
-  "Popular TV": { url: "/tv/popular", type: "tv" },
-  "Top Rated TV": { url: "/tv/top_rated", type: "tv" },
-};
-
 export const getHomeData: () => Promise<any> = async () => {
+  const HomeAPIRoutes: { [key: string]: { url: string; type: "tv" | "movie" } } = {
+    "Trending Movies": { url: "/trending/movie/week", type: "movie" },
+    "Popular Movies": { url: "/movie/popular", type: "movie" },
+    "Top Rated Movies": { url: "/movie/top_rated", type: "movie" },
+    "Trending TV": { url: "/trending/tv/week", type: "tv" },
+    "Popular TV": { url: "/tv/popular", type: "tv" },
+    "Top Rated TV": { url: "/tv/top_rated", type: "tv" },
+  };
+
   const promises = await Promise.all(Object.keys(HomeAPIRoutes).map((item) => axios.get(HomeAPIRoutes[item].url)));
 
   const data = promises.reduce((final, current, index) => {
@@ -62,7 +61,7 @@ export const getMovieDetails: (id: string) => Promise<any> = async (id) => {
   return result;
 };
 
-export const getTVDetails: (id: string) => Promise<{ data: Detail; casts: Cast[]; similar: Item[]; videos: VideoTrailer[] }> = async (id) => {
+export const getTVDetails: (id: string) => Promise<any> = async (id) => {
   const labels = ["data", "casts", "similar", "videos"];
 
   const result = (await Promise.all([axios.get(`/tv/${id}`), axios.get(`/tv/${id}/credits`), axios.get(`/tv/${id}/similar`), axios.get(`/tv/${id}/videos`)])).reduce((final, current, index) => {
@@ -80,4 +79,19 @@ export const getTVDetails: (id: string) => Promise<{ data: Detail; casts: Cast[]
   }, {} as any);
 
   return result;
+};
+
+export const getTVSeasons: (id: string) => Promise<any> = async (id) => {
+  const data = (await axios.get(`/tv/${id}`)).data as Detail;
+
+  if (data.seasons.length === 0) throw new Error("404");
+
+  const res = await Promise.all(data.seasons.map((item) => axios.get(`/tv/${id}/season/${item.season_number}`)));
+
+  const seasons = res.map((item) => item.data).filter((item) => item.name && item.poster_path && item.episodes.length > 0 && item.episodes.every((child: any) => child.name && child.still_path));
+
+  return {
+    seasons,
+    data,
+  };
 };

@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query, res }) => 
   try {
     const response = await getMovieDetails(movieId);
 
-    res.setHeader("Cache-Control", "public, max-age=99999");
+    res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate");
     return {
       props: {
         ...response,
