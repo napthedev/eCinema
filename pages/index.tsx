@@ -13,7 +13,6 @@ import type { NextPage } from "next";
 import { getHomeData } from "../utils/api";
 
 interface HomeProps {
-  isError: boolean;
   data: {
     [id: string]: Item[];
   };
