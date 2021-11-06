@@ -16,7 +16,7 @@ const MovieSlider: NextPage<MovieSliderProps> = ({ data, loop = true }) => {
       <div className="!flex">
         {data.map((item) => (
           <SwiperSlide key={item.id} className="!w-[200px] !flex">
-            <MovieCard item={item} />
+            <MovieCard item={item} width={200} height={300} />
           </SwiperSlide>
         ))}
       </div>

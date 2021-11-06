@@ -1,6 +1,6 @@
-import type { NextPage } from "next";
-import MovieCard from "./MovieCard";
 import { Item } from "../utils/types";
+import MovieCard from "./MovieCard";
+import type { NextPage } from "next";
 import Pagination from "./Pagination";
 
 interface MovieGridProps {
@@ -15,7 +15,7 @@ const MovieGrid: NextPage<MovieGridProps> = ({ data, currentPage, maximumPage, r
     <>
       <div className="grid justify-center gap-5" style={{ gridGap: 20, gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))" }}>
         {data.map((item) => (
-          <MovieCard item={item} key={item.id} />
+          <MovieCard item={item} key={item.id} width="100%" height={270} />
         ))}
       </div>
       <div className="flex justify-center mt-8">
