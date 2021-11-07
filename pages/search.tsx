@@ -29,7 +29,7 @@ const Search: NextPage<SearchProps> = ({ result, newPage = false, q }) => {
 
   return (
     <>
-      <Meta title={newPage ? "Search - eCinema" : `${q} - Search - eCinema`} description={newPage ? "Searching for movies" : `Search result for ${q}`} image="https://www.pngitem.com/pimgs/m/124-1247300_seo-agency-in-jaipur-search-illustration-hd-png.png" />
+      <Meta title={newPage ? "Search - eCinema" : `${q} - Search - eCinema`} description={newPage ? "Searching for movies" : `Search result for ${q}`} image="https://res.cloudinary.com/naptest/image/upload/v1636255166/eCinema/search_wkvhmj.png" />
       <Layout>
         <div className="min-h-screen pt-24">
           {newPage ? (
