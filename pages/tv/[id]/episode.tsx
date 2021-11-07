@@ -55,7 +55,7 @@ const TVEpisode: NextPage<TVEpisodeProps> = ({ seasons, data, seasonId, episodeI
                   </div>
                 </div>
 
-                <AnimatePresence>
+                <AnimatePresence initial={false}>
                   {opened === item.season_number && (
                     <motion.div initial={{ height: 0 }} animate={{ height: "auto", transition: { duration: 0.3 } }} exit={{ height: 0 }} className="flex flex-col gap-2 overflow-hidden">
                       {item.episodes.map((child) => (
