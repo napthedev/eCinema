@@ -4,7 +4,6 @@ import { Fragment, useState } from "react";
 import { embedEpisode, imageOriginal } from "../../../utils/constants";
 
 import { GetServerSideProps } from "next";
-import Head from "next/head";
 import Layout from "../../../components/Layout";
 import Link from "next/link";
 import Meta from "../../../components/Meta";
@@ -27,11 +26,6 @@ const TVEpisode: NextPage<TVEpisodeProps> = ({ seasons, data, seasonId, episodeI
   return (
     <>
       <Meta title={`${data.name} - Episode ${episodeId} - Season ${seasonId} - eCinema`} description="Watch TV Episode" image={imageOriginal(episode.still_path)} />
-      <Head>
-        <title>
-          {data.name} - Episode {episodeId} - Season {seasonId} - eCinema
-        </title>
-      </Head>
       <Layout>
         <div className="mt-28 flex flex-col lg:flex-row px-10 lg:px-20 gap-8">
           <div className="flex-grow">
