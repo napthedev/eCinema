@@ -4,6 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Layout from "../components/Layout";
+import Meta from "../components/Meta";
 import MovieGrid from "../components/MovieGrid";
 import type { NextPage } from "next";
 import { SearchResult } from "../utils/types";
@@ -31,6 +32,8 @@ const Search: NextPage<SearchProps> = ({ result, newPage = false, q }) => {
     <>
       <Head>
         <title>{newPage ? "Search - eCinema" : `${q} - Search - eCinema`}</title>
+
+        <Meta title={newPage ? "Search - eCinema" : `${q} - Search - eCinema`} description={newPage ? "Searching for movies" : `Search result for ${q}`} image="https://www.pngitem.com/pimgs/m/124-1247300_seo-agency-in-jaipur-search-illustration-hd-png.png" />
       </Head>
       <Layout>
         <div className="min-h-screen pt-24">

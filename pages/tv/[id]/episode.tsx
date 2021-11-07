@@ -1,14 +1,15 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Detail, Episode, Season } from "../../../utils/types";
 import { Fragment, useState } from "react";
+import { embedEpisode, imageOriginal } from "../../../utils/constants";
 
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Layout from "../../../components/Layout";
 import Link from "next/link";
+import Meta from "../../../components/Meta";
 import type { NextPage } from "next";
 import StarRating from "../../../components/StarRating";
-import { embedEpisode } from "../../../utils/constants";
 import { getTVSeasons } from "../../../utils/api";
 import { imageResize } from "../../../utils/constants";
 
@@ -25,6 +26,7 @@ const TVEpisode: NextPage<TVEpisodeProps> = ({ seasons, data, seasonId, episodeI
 
   return (
     <>
+      <Meta title={`${data.name} - Episode ${episodeId} - Season ${seasonId} - eCinema`} description="Watch TV Episode" image={imageOriginal(episode.still_path)} />
       <Head>
         <title>
           {data.name} - Episode {episodeId} - Season {seasonId} - eCinema

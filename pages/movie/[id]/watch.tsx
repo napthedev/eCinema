@@ -1,10 +1,10 @@
 import { Detail, Item } from "../../../utils/types";
-import { embedMovie, imageResize } from "../../../utils/constants";
+import { embedMovie, imageOriginal, imageResize } from "../../../utils/constants";
 
 import { GetServerSideProps } from "next";
-import Head from "next/head";
 import Layout from "../../../components/Layout";
 import Link from "next/link";
+import Meta from "../../../components/Meta";
 import type { NextPage } from "next";
 import StarRating from "../../../components/StarRating";
 import { getWatchMovieContent } from "../../../utils/api";
@@ -17,9 +17,7 @@ interface WatchMovieProps {
 const WatchMovie: NextPage<WatchMovieProps> = ({ similar, data }) => {
   return (
     <>
-      <Head>
-        <title>{data.title} - Watch Episode - eCinema</title>
-      </Head>
+      <Meta title={`${data.title} - Watch Episode - eCinema`} description="Watch the movie" image={imageOriginal(data.backdrop_path)} />
       <Layout>
         <div className="mt-28 flex flex-col lg:flex-row px-10 lg:px-20 gap-8">
           <div className="flex-grow">

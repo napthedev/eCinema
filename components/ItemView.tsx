@@ -6,8 +6,8 @@ import { imageOriginal, imageResize } from "../utils/constants";
 
 import Button from "./Button";
 import { FaTimes } from "react-icons/fa";
-import Head from "next/head";
 import Link from "next/link";
+import Meta from "./Meta";
 import MovieSlider from "./MovieSlider";
 import type { NextPage } from "next";
 import StarRating from "./StarRating";
@@ -25,9 +25,7 @@ const ItemView: NextPage<ItemViewProps> = ({ media_type, data, casts, similar, v
 
   return (
     <>
-      <Head>
-        <title>{media_type === "movie" ? `${data.title} - Movie` : `${data.name} - TV`} - eCinema</title>
-      </Head>
+      <Meta title={media_type === "movie" ? data.title + " - Movie" : data.name + " - TV"} description="Viewing Info" image={imageOriginal(data.backdrop_path)} />
       <div className="relative min-h-screen">
         <div style={{ backgroundImage: `url("${imageOriginal(data.backdrop_path)}")`, backgroundPosition: "50%" }} className="mask-image bg-no-repeat bg-cover w-screen h-[350px] md:h-[500px] absolute top-0 left-0 opacity-50 block z-[-1]"></div>
         <div className="md:pt-52 pt-24 px-10 md:px-20 flex flex-col md:flex-row gap-5">

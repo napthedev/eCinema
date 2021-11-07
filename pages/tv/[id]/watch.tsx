@@ -1,15 +1,15 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Detail, Season } from "../../../utils/types";
 import { Fragment, useState } from "react";
+import { imageOriginal, imageResize } from "../../../utils/constants";
 
 import { GetServerSideProps } from "next";
-import Head from "next/head";
 import Layout from "../../../components/Layout";
 import Link from "next/link";
+import Meta from "../../../components/Meta";
 import type { NextPage } from "next";
 import StarRating from "../../../components/StarRating";
 import { getTVSeasons } from "../../../utils/api";
-import { imageResize } from "../../../utils/constants";
 
 interface WatchTVProps {
   seasons: Season[];
@@ -21,9 +21,7 @@ const WatchTV: NextPage<WatchTVProps> = ({ seasons, data }) => {
 
   return (
     <>
-      <Head>
-        <title>{data.name} - Seasons - eCinema</title>
-      </Head>
+      <Meta title={`${data.name} - Seasons - eCinema`} description="View Seasons" image={imageOriginal(data.backdrop_path)} />
 
       <Layout>
         <div className="flex justify-center">

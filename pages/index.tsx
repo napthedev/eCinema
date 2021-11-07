@@ -4,10 +4,10 @@ import { imageOriginal, imageResize } from "../utils/constants";
 import Button from "../components/Button";
 import { Fragment } from "react";
 import { GetStaticProps } from "next";
-import Head from "next/head";
 import { Item } from "../utils/types";
 import Layout from "../components/Layout";
 import Link from "next/link";
+import Meta from "../components/Meta";
 import MovieSlider from "../components/MovieSlider";
 import type { NextPage } from "next";
 import { getHomeData } from "../utils/api";
@@ -22,9 +22,7 @@ interface HomeProps {
 const Home: NextPage<HomeProps> = ({ data, main }) => {
   return (
     <Layout>
-      <Head>
-        <title>eCinema - Popular movies in one place</title>
-      </Head>
+      <Meta title="eCinema - Popular movies in one place" description="Watch your favorite movies and TV shows in out website." image="https://res.cloudinary.com/naptest/image/upload/c_crop,w_2040/v1636194572/eCinema/bg_tmxbgh.jpg" />
 
       <div className="relative w-screen h-screen flex justify-between items-center gap-6 md:px-20 px-10">
         <div style={{ backgroundImage: `url("${imageOriginal(main.backdrop_path)}")`, backgroundPosition: "50%" }} className="bg-no-repeat bg-cover w-screen h-screen absolute top-0 left-0 opacity-50 hidden md:block"></div>
