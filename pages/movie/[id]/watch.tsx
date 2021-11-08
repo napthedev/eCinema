@@ -37,13 +37,15 @@ const WatchMovie: NextPage<WatchMovieProps> = ({ similar, data }) => {
             <h1 className="text-xl">Similar Movies</h1>
             {similar.map((item) => (
               <Link href={`/movie/${item.id}`}>
-                <div className="flex gap-4 pr-5 group cursor-pointer">
-                  <img className="w-[80px] h-[120px] object-cover group-hover:brightness-75 transition duration-300" src={imageResize(item.poster_path, "w92")} alt="" />
-                  <div className="py-3 group-hover:text-orange transition duration-300">
-                    <h1>{item.title}</h1>
-                    <StarRating stars={Math.round(item.vote_average / 2)} maximum={5} />
+                <a>
+                  <div className="flex gap-4 pr-5 group cursor-pointer">
+                    <img className="w-[80px] h-[120px] object-cover group-hover:brightness-75 transition duration-300" src={imageResize(item.poster_path, "w92")} alt="" />
+                    <div className="py-3 group-hover:text-orange transition duration-300">
+                      <h1>{item.title}</h1>
+                      <StarRating stars={Math.round(item.vote_average / 2)} maximum={5} />
+                    </div>
                   </div>
-                </div>
+                </a>
               </Link>
             ))}
           </div>

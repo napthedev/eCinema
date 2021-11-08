@@ -60,12 +60,14 @@ const TVEpisode: NextPage<TVEpisodeProps> = ({ seasons, data, seasonId, episodeI
                     <motion.div initial={{ height: 0 }} animate={{ height: "auto", transition: { duration: 0.3 } }} exit={{ height: 0 }} className="flex flex-col gap-2 overflow-hidden">
                       {item.episodes.map((child) => (
                         <Link key={child.episode_number} href={{ pathname: `/tv/${data.id}/episode`, query: { season: item.season_number, episode: child.episode_number } }}>
-                          <div className="flex items-center bg-dark-darken w-full rounded-lg overflow-hidden cursor-pointer hover:brightness-[80%] transition duration-300">
-                            <img className="w-[154px] h-[87px] flex-shrink-0 mr-4 object-cover rounded-md" src={imageResize(child.still_path, "w154")} alt="" />
-                            <div className="flex-grow">
-                              <p className={`${child.episode_number === Number(episodeId) ? "text-orange" : ""}`}>Episode {child.episode_number}</p>
+                          <a>
+                            <div className="flex items-center bg-dark-darken w-full rounded-lg overflow-hidden cursor-pointer hover:brightness-[80%] transition duration-300">
+                              <img className="w-[154px] h-[87px] flex-shrink-0 mr-4 object-cover rounded-md" src={imageResize(child.still_path, "w154")} alt="" />
+                              <div className="flex-grow">
+                                <p className={`${child.episode_number === Number(episodeId) ? "text-orange" : ""}`}>Episode {child.episode_number}</p>
+                              </div>
                             </div>
-                          </div>
+                          </a>
                         </Link>
                       ))}
                     </motion.div>
