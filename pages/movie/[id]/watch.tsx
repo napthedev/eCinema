@@ -19,7 +19,7 @@ const WatchMovie: NextPage<WatchMovieProps> = ({ similar, data }) => {
     <>
       <Meta title={`${data.title} - Watch Episode - eCinema`} description="Watch the movie" image={imageOriginal(data.backdrop_path)} />
       <Layout>
-        <div className="mt-28 flex flex-col lg:flex-row px-10 lg:px-20 gap-8">
+        <div className="mt-28 flex flex-col lg:flex-row px-5 lg:px-20 gap-8">
           <div className="flex-grow">
             <div className="relative h-0 w-full" style={{ paddingBottom: "56.25%" }}>
               <iframe className="absolute top-0 left-0 w-full h-full" src={embedMovie(data.id)} title="" frameBorder="0" allowFullScreen></iframe>

@@ -27,7 +27,7 @@ const TVEpisode: NextPage<TVEpisodeProps> = ({ seasons, data, seasonId, episodeI
     <>
       <Meta title={`${data.name} - Episode ${episodeId} - Season ${seasonId} - eCinema`} description="Watch TV Episode" image={imageOriginal(episode.still_path)} />
       <Layout>
-        <div className="mt-28 flex flex-col lg:flex-row px-10 lg:px-20 gap-8">
+        <div className="mt-28 flex flex-col lg:flex-row px-5 lg:px-20 gap-8">
           <div className="flex-grow">
             <div className="relative h-0 w-full" style={{ paddingBottom: "56.25%" }}>
               <iframe className="absolute top-0 left-0 w-full h-full" src={embedEpisode(data.id, seasonId, episodeId)} title="YouTube video player" frameBorder="0" allowFullScreen></iframe>
