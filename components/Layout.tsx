@@ -30,10 +30,7 @@ const Layout: NextPage = ({ children }) => {
               y: 100,
               opacity: 0,
             }
-          : {
-              x: 30,
-              opacity: 0,
-            }
+          : {}
       }
       animate={
         width > MOBILE_WIDTH
@@ -46,15 +43,7 @@ const Layout: NextPage = ({ children }) => {
                 delay: 0.2,
               },
             }
-          : {
-              x: 0,
-              y: 0,
-              opacity: 1,
-              transition: {
-                duration: 0.3,
-                delay: 0.2,
-              },
-            }
+          : {}
       }
       exit={
         width > MOBILE_WIDTH
@@ -65,13 +54,7 @@ const Layout: NextPage = ({ children }) => {
                 duration: 0.5,
               },
             }
-          : {
-              x: -30,
-              opacity: 0,
-              transition: {
-                duration: 0.3,
-              },
-            }
+          : {}
       }
       onScroll={() => {
         if (layoutRef.current) {
