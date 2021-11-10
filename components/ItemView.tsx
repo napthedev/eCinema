@@ -28,12 +28,12 @@ const ItemView: NextPage<ItemViewProps> = ({ media_type, data, casts, similar, v
       <Meta title={media_type === "movie" ? data.title + " - Movie" : data.name + " - TV"} description="Viewing Info" image={imageOriginal(data.backdrop_path)} />
       <div className="relative min-h-screen">
         <div style={{ backgroundImage: `url("${imageOriginal(data.backdrop_path)}")`, backgroundPosition: "50%" }} className="mask-image bg-no-repeat bg-cover w-screen h-[350px] md:h-[500px] absolute top-0 left-0 opacity-50 block z-[-1]"></div>
-        <div className="md:pt-52 pt-24 px-10 md:px-20 flex flex-col md:flex-row gap-5">
+        <div className="md:pt-52 pt-24 px-6 md:px-20 flex flex-col md:flex-row gap-5">
           <div className="md:w-[300px] w-full flex-shrink-0 flex justify-center items-start">
             <img className="rounded-xl" src={imageResize(data.poster_path, "w300")} alt="" />
           </div>
           <div className="flex flex-col justify-start gap-3">
-            <div className="flex gap-2 justify-center md:justify-start md:h-12">
+            <div className="flex gap-2 justify-center md:justify-start md:h-12 flex-wrap">
               {media_type === "movie" ? (
                 <Link href={`/movie/${data.id}/watch`}>
                   <a>
@@ -79,7 +79,7 @@ const ItemView: NextPage<ItemViewProps> = ({ media_type, data, casts, similar, v
             <div className="flex items-center">{data.vote_average ? <StarRating stars={Math.round(data.vote_average)} maximum={10} extraText={` (${data.vote_count} votes)`} /> : <></>}</div>
           </div>
         </div>
-        <div className="mt-10 md:mt-20 px-10 md:px-20">
+        <div className="mt-10 md:mt-20 px-6 md:px-20">
           {data.homepage && (
             <p className="text-xl" style={{ wordBreak: "break-all" }}>
               Official website:{" "}
@@ -106,7 +106,7 @@ const ItemView: NextPage<ItemViewProps> = ({ media_type, data, casts, similar, v
         </div>
         {similar && (
           <>
-            <h1 className="my-10 text-2xl px-10 md:px-20">Similar Movies</h1>
+            <h1 className="my-10 text-2xl px-6 md:px-20">Similar Movies</h1>
             <MovieSlider data={similar} loop={false} />
           </>
         )}
