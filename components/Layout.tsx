@@ -3,10 +3,13 @@ import { useEffect, useRef } from "react";
 import Footer from "./Footer";
 import type { NextPage } from "next";
 import { motion } from "framer-motion";
+import { useInnerWidth } from "../hooks/useInnerWidth";
 
 const Layout: NextPage = ({ children }) => {
-  const layoutRef = useRef<HTMLDivElement | null>(null);
+  const MOBILE_WIDTH = 768;
+  const width = useInnerWidth();
 
+  const layoutRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     document.body.classList.remove("scrolled");
   }, []);
@@ -20,25 +23,56 @@ const Layout: NextPage = ({ children }) => {
         overflowX: "hidden",
         overflowY: "auto",
       }}
-      initial={{
-        y: 100,
-        opacity: 0,
-      }}
-      animate={{
-        y: 0,
-        opacity: 1,
-        transition: {
-          duration: 0.7,
-          delay: 0.2,
-        },
-      }}
-      exit={{
-        y: 100,
-        opacity: 0,
-        transition: {
-          duration: 0.5,
-        },
-      }}
+      key={width}
+      initial={
+        width > MOBILE_WIDTH
+          ? {
+              y: 100,
+              opacity: 0,
+            }
+          : {
+              x: 30,
+              opacity: 0,
+            }
+      }
+      animate={
+        width > MOBILE_WIDTH
+          ? {
+              x: 0,
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.7,
+                delay: 0.2,
+              },
+            }
+          : {
+              x: 0,
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.3,
+                delay: 0.2,
+              },
+            }
+      }
+      exit={
+        width > MOBILE_WIDTH
+          ? {
+              y: 100,
+              opacity: 0,
+              transition: {
+                duration: 0.5,
+              },
+            }
+          : {
+              x: -30,
+              opacity: 0,
+              transition: {
+                duration: 0.3,
+              },
+            }
+      }
       onScroll={() => {
         if (layoutRef.current) {
           if (layoutRef.current.scrollTop < 10) document.body.classList.remove("scrolled");
