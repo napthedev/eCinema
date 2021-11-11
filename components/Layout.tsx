@@ -23,14 +23,16 @@ const Layout: NextPage = ({ children }) => {
         overflowX: "hidden",
         overflowY: "auto",
       }}
-      key={width}
+      key={String(width > MOBILE_WIDTH)}
       initial={
         width > MOBILE_WIDTH
           ? {
               y: 100,
               opacity: 0,
             }
-          : {}
+          : {
+              opacity: 0,
+            }
       }
       animate={
         width > MOBILE_WIDTH
@@ -43,7 +45,13 @@ const Layout: NextPage = ({ children }) => {
                 delay: 0.2,
               },
             }
-          : {}
+          : {
+              opacity: 1,
+              transition: {
+                duration: 0.4,
+                delay: 0.2,
+              },
+            }
       }
       exit={
         width > MOBILE_WIDTH
@@ -54,7 +62,12 @@ const Layout: NextPage = ({ children }) => {
                 duration: 0.5,
               },
             }
-          : {}
+          : {
+              opacity: 0,
+              transition: {
+                duration: 0.4,
+              },
+            }
       }
       onScroll={() => {
         if (layoutRef.current) {
