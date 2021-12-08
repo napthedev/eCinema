@@ -9,7 +9,11 @@ interface PaginationProps {
   resolveLink: (page: number) => string;
 }
 
-const Pagination: NextPage<PaginationProps> = ({ current, maximum, resolveLink }) => {
+const Pagination: NextPage<PaginationProps> = ({
+  current,
+  maximum,
+  resolveLink,
+}) => {
   return (
     <div className="flex items-center justify-center gap-1 flex-wrap">
       {current > 1 && (
@@ -26,7 +30,13 @@ const Pagination: NextPage<PaginationProps> = ({ current, maximum, resolveLink }
           {new Array(maximum < 5 ? maximum : 5).fill("").map((_, index) => (
             <Link key={index} href={resolveLink(index + 1)}>
               <a>
-                <button className={`rounded-btn ${current === index + 1 ? "!bg-orange" : ""}`}>{index + 1}</button>
+                <button
+                  className={`rounded-btn ${
+                    current === index + 1 ? "!bg-orange" : ""
+                  }`}
+                >
+                  {index + 1}
+                </button>
               </a>
             </Link>
           ))}
@@ -52,7 +62,13 @@ const Pagination: NextPage<PaginationProps> = ({ current, maximum, resolveLink }
           {new Array(5).fill("").map((_, index) => (
             <Link key={index} href={resolveLink(maximum - 4 + index)}>
               <a>
-                <button className={`rounded-btn ${current === maximum - 4 + index ? "!bg-orange" : ""}`}>{maximum - 4 + index}</button>
+                <button
+                  className={`rounded-btn ${
+                    current === maximum - 4 + index ? "!bg-orange" : ""
+                  }`}
+                >
+                  {maximum - 4 + index}
+                </button>
               </a>
             </Link>
           ))}
@@ -68,7 +84,13 @@ const Pagination: NextPage<PaginationProps> = ({ current, maximum, resolveLink }
           {new Array(5).fill("").map((_, index) => (
             <Link key={index} href={resolveLink(current - 2 + index)}>
               <a>
-                <button className={`rounded-btn ${current === current - 2 + index ? "!bg-orange" : ""}`}>{current - 2 + index}</button>
+                <button
+                  className={`rounded-btn ${
+                    current === current - 2 + index ? "!bg-orange" : ""
+                  }`}
+                >
+                  {current - 2 + index}
+                </button>
               </a>
             </Link>
           ))}

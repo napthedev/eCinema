@@ -24,7 +24,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <link rel="shortcut icon" href="https://ik.imagekit.io/nap/eCinema/Video_Logo__1__I2y-1zWj18k.png" type="image/x-icon" />
+        <link
+          rel="shortcut icon"
+          href="https://ik.imagekit.io/nap/eCinema/Video_Logo__1__I2y-1zWj18k.png"
+          type="image/x-icon"
+        />
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/icon-256x256.png" />
       </Head>

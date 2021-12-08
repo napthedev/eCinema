@@ -22,7 +22,10 @@ const Movie: NextPage<MovieProps> = (props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query, res }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+  res,
+}) => {
   const movieId = query.id as string;
 
   try {

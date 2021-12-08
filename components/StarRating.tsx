@@ -6,11 +6,20 @@ interface StarRatingProps {
   extraText?: string;
 }
 
-const StarRating: NextPage<StarRatingProps> = ({ stars = 0, maximum, extraText = "" }) => {
+const StarRating: NextPage<StarRatingProps> = ({
+  stars = 0,
+  maximum,
+  extraText = "",
+}) => {
   return (
     <div>
       {new Array(maximum).fill("").map((_, index) => (
-        <span key={index} className={`text-xl ${index < stars ? "text-orange" : "text-gray-300"}`}>
+        <span
+          key={index}
+          className={`text-xl ${
+            index < stars ? "text-orange" : "text-gray-300"
+          }`}
+        >
           &#9733;
         </span>
       ))}

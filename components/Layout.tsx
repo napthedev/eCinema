@@ -71,7 +71,8 @@ const Layout: NextPage = ({ children }) => {
       }
       onScroll={() => {
         if (layoutRef.current) {
-          if (layoutRef.current.scrollTop < 10) document.body.classList.remove("scrolled");
+          if (layoutRef.current.scrollTop < 10)
+            document.body.classList.remove("scrolled");
           else document.body.classList.add("scrolled");
         }
       }}
