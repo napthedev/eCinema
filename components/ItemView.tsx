@@ -6,6 +6,7 @@ import { imageOriginal, imageResize } from "../utils/constants";
 
 import Button from "./Button";
 import { FaTimes } from "react-icons/fa";
+import Image from "../components/Image";
 import Link from "next/link";
 import Meta from "./Meta";
 import MovieSlider from "./MovieSlider";
@@ -48,7 +49,7 @@ const ItemView: NextPage<ItemViewProps> = ({
         ></div>
         <div className="md:pt-52 pt-24 px-6 md:px-20 flex flex-col md:flex-row gap-5">
           <div className="md:w-[300px] w-full flex-shrink-0 flex justify-center items-start">
-            <img
+            <Image
               className="rounded-xl"
               src={imageResize(data.poster_path, "w300")}
               alt=""
@@ -146,7 +147,7 @@ const ItemView: NextPage<ItemViewProps> = ({
               >
                 {casts.map((item) => (
                   <div key={item.id} className="flex flex-col items-center">
-                    <img
+                    <Image
                       className="w-full h-auto object-cover rounded-xl"
                       src={imageResize(item.profile_path)}
                       alt=""

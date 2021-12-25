@@ -4,6 +4,7 @@ import { Fragment, useState } from "react";
 import { imageOriginal, imageResize } from "../../../utils/constants";
 
 import { GetServerSideProps } from "next";
+import Image from "../../../components/Image";
 import Layout from "../../../components/Layout";
 import Link from "next/link";
 import Meta from "../../../components/Meta";
@@ -32,7 +33,7 @@ const WatchTV: NextPage<WatchTVProps> = ({ seasons, data }) => {
           <div className="mt-24 md:mx-20 w-full max-w-4xl mx-6">
             <div className="flex gap-4 flex-col md:flex-row">
               <div className="md:w-[200px] w-full h-full flex justify-center items-center flex-shrink-0">
-                <img src={imageResize(data.poster_path)} alt="" />
+                <Image src={imageResize(data.poster_path)} alt="" />
               </div>
               <div className="flex flex-col items-start gap-3 flex-grow">
                 <Link href={`/tv/${data.id}`}>
@@ -63,7 +64,7 @@ const WatchTV: NextPage<WatchTVProps> = ({ seasons, data }) => {
                   }
                 >
                   <div className="w-[154px] h-[231px] flex-shrink-0">
-                    <img
+                    <Image
                       className="w-full h-full"
                       src={imageResize(item.poster_path, "w154")}
                       alt=""
@@ -113,7 +114,7 @@ const WatchTV: NextPage<WatchTVProps> = ({ seasons, data }) => {
                               <div className="w-10 hidden md:flex flex-shrink-0 justify-center items-center">
                                 <h1 className="text-center">{index + 1}</h1>
                               </div>
-                              <img
+                              <Image
                                 className="w-[154px] h-[87px] flex-shrink-0 mr-4 object-cover rounded-md"
                                 src={imageResize(child.still_path, "w154")}
                                 alt=""

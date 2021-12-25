@@ -4,6 +4,7 @@ import { Fragment, useState } from "react";
 import { embedEpisode, imageOriginal } from "../../../utils/constants";
 
 import { GetServerSideProps } from "next";
+import Image from "../../../components/Image";
 import Layout from "../../../components/Layout";
 import Link from "next/link";
 import Meta from "../../../components/Meta";
@@ -80,7 +81,7 @@ const TVEpisode: NextPage<TVEpisodeProps> = ({
                   }
                 >
                   <div className="w-[45px] h-[68px] flex-shrink-0">
-                    <img
+                    <Image
                       className="w-full h-full"
                       src={imageResize(item.poster_path, "w45")}
                       alt=""
@@ -121,7 +122,7 @@ const TVEpisode: NextPage<TVEpisodeProps> = ({
                         >
                           <a>
                             <div className="flex items-center bg-dark-darken w-full rounded-lg overflow-hidden cursor-pointer hover:brightness-[80%] transition duration-300">
-                              <img
+                              <Image
                                 className="w-[154px] h-[87px] flex-shrink-0 mr-4 object-cover rounded-md"
                                 src={imageResize(child.still_path, "w154")}
                                 alt=""

@@ -1,3 +1,4 @@
+import Image from "./Image";
 import { Item } from "../utils/types";
 import Link from "next/link";
 import type { NextPage } from "next";
@@ -16,7 +17,7 @@ const MovieCard: NextPage<MovieCardProps> = ({ item, height, width }) => {
     >
       <a>
         <div className="rounded-lg overflow-hidden cursor-pointer group flex flex-col items-center">
-          <img
+          <Image
             style={{ height, width }}
             className="group-hover:brightness-75 transition duration-300 object-cover"
             src={imageResize(item.poster_path)}

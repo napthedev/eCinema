@@ -6,6 +6,7 @@ import {
 } from "../../../utils/constants";
 
 import { GetServerSideProps } from "next";
+import Image from "../../../components/Image";
 import Layout from "../../../components/Layout";
 import Link from "next/link";
 import Meta from "../../../components/Meta";
@@ -62,7 +63,7 @@ const WatchMovie: NextPage<WatchMovieProps> = ({ similar, data }) => {
               <Link href={`/movie/${item.id}`}>
                 <a>
                   <div className="flex gap-4 pr-5 group cursor-pointer">
-                    <img
+                    <Image
                       className="w-[80px] h-[120px] object-cover group-hover:brightness-75 transition duration-300"
                       src={imageResize(item.poster_path, "w92")}
                       alt=""

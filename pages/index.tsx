@@ -4,6 +4,7 @@ import { imageOriginal, imageResize } from "../utils/constants";
 import Button from "../components/Button";
 import { Fragment } from "react";
 import { GetStaticProps } from "next";
+import Image from "../components/Image";
 import { Item } from "../utils/types";
 import Layout from "../components/Layout";
 import Link from "next/link";
@@ -28,21 +29,13 @@ const Home: NextPage<HomeProps> = ({ data, main }) => {
         image="https://res.cloudinary.com/naptest/image/upload/c_crop,w_2040/v1636194572/eCinema/bg_tmxbgh.jpg"
       />
 
-      <div className="relative w-screen h-screen flex justify-between items-center gap-6 md:px-20 px-10">
-        <div
-          style={{
-            backgroundImage: `url("${imageOriginal(main.backdrop_path)}")`,
-            backgroundPosition: "50%",
-          }}
-          className="bg-no-repeat bg-cover w-screen h-screen absolute top-0 left-0 opacity-50 hidden md:block"
-        ></div>
-        <div
-          style={{
-            backgroundImage: `url("${imageOriginal(main.poster_path)}")`,
-            backgroundPosition: "50%",
-          }}
-          className="bg-no-repeat bg-cover w-screen h-screen absolute top-0 left-0 opacity-50 block md:hidden"
-        ></div>
+      <div className="relative w-screen h-screen hidden md:flex justify-between items-center gap-6 md:px-20 px-10">
+        <Image
+          src={imageOriginal(main.backdrop_path)}
+          opacity={0.5}
+          className="w-screen h-screen absolute top-0 left-0 hidden md:block object-cover"
+        />
+
         <div className="z-10 w-auto flex-1 flex justify-center items-center">
           <div className="flex flex-col items-start gap-4">
             <p className="md:text-5xl text-4xl text-gray-100 max-w-xl">
@@ -72,16 +65,22 @@ const Home: NextPage<HomeProps> = ({ data, main }) => {
           </div>
         </div>
         <div className="flex-1 justify-center items-center hidden md:flex min-w-[300px]">
-          <img
+          <Image
             className="z-10 w-[300px] rounded-xl"
             src={imageResize(main.poster_path, "w300")}
             alt=""
           />
         </div>
       </div>
-      {Object.keys(data).map((item) => (
+      {Object.keys(data).map((item, index) => (
         <Fragment key={item}>
-          <h1 className="text-2xl mb-3 mt-8 md:ml-16 ml-4">{item}</h1>
+          <h1
+            className={`text-2xl mb-3 md:ml-16 ml-4 ${
+              index === 0 ? "mt-16 md:mt-8" : "mt-8"
+            }`}
+          >
+            {item}
+          </h1>
           <MovieSlider data={data[item]} />
         </Fragment>
       ))}
