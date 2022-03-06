@@ -1,15 +1,14 @@
 import { FaInfoCircle, FaPlayCircle } from "react-icons/fa";
 import { imageOriginal, imageResize } from "../utils/constants";
 
-import Button from "../components/Button";
+import Button from "../components/Shared/Button";
 import { Fragment } from "react";
 import { GetStaticProps } from "next";
-import Image from "../components/Image";
+import Image from "../components/Shared/Image";
 import { Item } from "../utils/types";
-import Layout from "../components/Layout";
 import Link from "next/link";
-import Meta from "../components/Meta";
-import MovieSlider from "../components/MovieSlider";
+import Meta from "../components/Shared/Meta";
+import MovieSlider from "../components/Movie/MovieSlider";
 import type { NextPage } from "next";
 import { getHomeData } from "../utils/api";
 
@@ -22,11 +21,11 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = ({ data, main }) => {
   return (
-    <Layout>
+    <>
       <Meta
         title="eCinema - Popular movies in one place"
         description="Watch your favorite movies and TV shows in out website."
-        image="https://res.cloudinary.com/naptest/image/upload/c_crop,w_2040/v1636194572/eCinema/bg_tmxbgh.jpg"
+        image="/preview.png"
       />
 
       <div className="relative w-screen h-screen hidden md:flex justify-between items-center gap-6 md:px-20 px-10">
@@ -34,6 +33,7 @@ const Home: NextPage<HomeProps> = ({ data, main }) => {
           src={imageOriginal(main.backdrop_path)}
           opacity={0.5}
           className="w-screen h-screen absolute top-0 left-0 hidden md:block object-cover"
+          alt=""
         />
 
         <div className="z-10 w-auto flex-1 flex justify-center items-center">
@@ -84,7 +84,7 @@ const Home: NextPage<HomeProps> = ({ data, main }) => {
           <MovieSlider data={data[item]} />
         </Fragment>
       ))}
-    </Layout>
+    </>
   );
 };
 
@@ -92,17 +92,16 @@ export const getStaticProps: GetStaticProps = async () => {
   try {
     const data = await getHomeData();
 
-    const main =
-      data["Trending Movies"][
-        Math.floor(Math.random() * data["Trending Movies"].length)
-      ];
+    const trending = data["Trending Movies"];
+
+    const main = trending[new Date().getDate() % trending.length];
 
     return {
       props: {
         data,
         main,
       },
-      revalidate: 7200,
+      revalidate: 3600,
     };
   } catch (error) {
     console.log(error);

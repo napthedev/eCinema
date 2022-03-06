@@ -1,7 +1,7 @@
 import { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { Item } from "../utils/types";
+import { Item } from "../../utils/types";
 import MovieCard from "./MovieCard";
 import type { NextPage } from "next";
 

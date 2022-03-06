@@ -20,5 +20,4 @@ TMDB_API_KEY={YourAPIKey}
 - Typescript
 - Tailwindcss
 - Swiper
-- Framer Motion
 - NProgress

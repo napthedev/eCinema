@@ -1,17 +1,16 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { Cast, Detail, Item, VideoTrailer } from "../utils/types";
+import { Cast, Detail, Item, VideoTrailer } from "@/utils/types";
 import { FaPlayCircle, FaYoutube } from "react-icons/fa";
 import { Fragment, useState } from "react";
-import { imageOriginal, imageResize } from "../utils/constants";
+import { imageOriginal, imageResize } from "@/utils/constants";
 
-import Button from "./Button";
+import Button from "../Shared/Button";
 import { FaTimes } from "react-icons/fa";
-import Image from "../components/Image";
+import Image from "../Shared/Image";
 import Link from "next/link";
-import Meta from "./Meta";
-import MovieSlider from "./MovieSlider";
+import Meta from "../Shared/Meta";
+import MovieSlider from "../Movie/MovieSlider";
 import type { NextPage } from "next";
-import StarRating from "./StarRating";
+import StarRating from "../Display/StarRating";
 
 interface ItemViewProps {
   media_type: "movie" | "tv";
@@ -56,7 +55,7 @@ const ItemView: NextPage<ItemViewProps> = ({
             />
           </div>
           <div className="flex flex-col justify-start gap-3">
-            <div className="flex gap-2 justify-center md:justify-start md:h-12 flex-wrap">
+            <div className="flex gap-2 justify-center md:justify-start md:h-12 flex-wrap md:flex-nowrap">
               {media_type === "movie" ? (
                 <Link href={`/movie/${data.id}/watch`}>
                   <a>
@@ -167,51 +166,46 @@ const ItemView: NextPage<ItemViewProps> = ({
           </>
         )}
       </div>
-      <AnimatePresence>
-        {trailerModalOpened && (
-          <motion.div
-            onClick={() => setTrailerModalOpened(false)}
-            className="fixed top-0 left-0 z-[60] w-screen h-screen flex justify-center items-center bg-[#2a2a2a80]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, transition: { duration: 0.5 } }}
-            exit={{ opacity: 0 }}
+      {trailerModalOpened && (
+        <div
+          onClick={() => setTrailerModalOpened(false)}
+          className="fixed top-0 left-0 z-[60] w-screen h-screen flex justify-center items-center bg-[#2a2a2a80]"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-h-screen max-w-xl flex flex-col gap-3 items-start overflow-y-auto bg-dark-lighten p-5 rounded-lg"
           >
-            <div
-              onClick={(e) => e.stopPropagation()}
-              className="w-full max-h-screen max-w-xl flex flex-col gap-3 items-start overflow-y-auto bg-dark-lighten p-5 rounded-lg"
-            >
-              <div className="flex justify-between w-full">
-                <h1 className="text-2xl ml-2">Movie Trailer</h1>
-                <button
-                  className="cursor-pointer"
-                  onClick={() => setTrailerModalOpened(false)}
-                >
-                  <FaTimes size={30} />
-                </button>
-              </div>
-              {videos.length > 0 &&
-                videos.map((item) => (
-                  <Fragment key={item.key}>
-                    <h1 className="text-lg mx-2 mt-4">{item.name}</h1>
-                    <div
-                      className="relative h-0 w-full"
-                      style={{ paddingBottom: "56.25%" }}
-                    >
-                      <iframe
-                        className="absolute top-0 left-0 w-full h-full"
-                        src={`https://www.youtube.com/embed/${item.key}`}
-                        title="YouTube video player"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
-                    </div>
-                  </Fragment>
-                ))}
+            <div className="flex justify-between w-full">
+              <h1 className="text-2xl ml-2">Movie Trailer</h1>
+              <button
+                className="cursor-pointer"
+                onClick={() => setTrailerModalOpened(false)}
+              >
+                <FaTimes size={30} />
+              </button>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {videos.length > 0 &&
+              videos.map((item) => (
+                <Fragment key={item.key}>
+                  <h1 className="text-lg mx-2 mt-4">{item.name}</h1>
+                  <div
+                    className="relative h-0 w-full"
+                    style={{ paddingBottom: "56.25%" }}
+                  >
+                    <iframe
+                      className="absolute top-0 left-0 w-full h-full"
+                      src={`https://www.youtube.com/embed/${item.key}`}
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                </Fragment>
+              ))}
+          </div>
+        </div>
+      )}
     </>
   );
 };

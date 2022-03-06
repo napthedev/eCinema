@@ -3,13 +3,12 @@ import "nprogress/nprogress.css";
 import "swiper/css";
 import "swiper/css/navigation";
 
-import Router, { useRouter } from "next/router";
-
-import { AnimatePresence } from "framer-motion";
 import type { AppProps } from "next/app";
+import Footer from "../components/Layout/Footer";
 import Head from "next/head";
 import NProgress from "nprogress";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Layout/Navbar";
+import Router from "next/router";
 
 NProgress.configure({
   showSpinner: false,
@@ -20,22 +19,14 @@ Router.events.on("routeChangeComplete", NProgress.done);
 Router.events.on("routeChangeError", NProgress.done);
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const router = useRouter();
   return (
     <>
       <Head>
-        <link
-          rel="shortcut icon"
-          href="https://ik.imagekit.io/nap/eCinema/Video_Logo__1__I2y-1zWj18k.png"
-          type="image/x-icon"
-        />
-        <link rel="manifest" href="/manifest.json" />
-        <link rel="apple-touch-icon" href="/icons/icon-256x256.png" />
+        <link rel="shortcut icon" href="/icon.png" type="image/x-icon" />
       </Head>
       <Navbar />
-      <AnimatePresence exitBeforeEnter initial={false}>
-        <Component {...pageProps} key={router.pathname} />
-      </AnimatePresence>
+      <Component {...pageProps} />
+      <Footer />
     </>
   );
 }
