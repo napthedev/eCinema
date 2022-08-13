@@ -9,6 +9,7 @@ import Head from "next/head";
 import NProgress from "nprogress";
 import Navbar from "../components/Layout/Navbar";
 import Router from "next/router";
+import Script from "next/script";
 
 NProgress.configure({
   showSpinner: false,
@@ -27,6 +28,23 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Navbar />
       <Component {...pageProps} />
       <Footer />
+      {process.env.NEXT_PUBLIC_GA_ID && (
+        <>
+          <Script
+            strategy="lazyOnload"
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+          ></Script>
+          <Script id="google-analytics" strategy="lazyOnload">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+            `}
+          </Script>
+        </>
+      )}
     </>
   );
 }
